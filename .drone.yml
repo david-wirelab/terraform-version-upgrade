@@ -5,6 +5,7 @@ name: terraform-version-upgrade
 steps:
   - name: init
     image: wirelab/docker-terragrunt:v0.11.14
+    user: root
     commands:
     - mkdir ~/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
@@ -18,6 +19,7 @@ steps:
 
   - name: validate
     image: wirelab/docker-terragrunt:v0.11.14
+    user: root
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -35,6 +37,7 @@ steps:
 
   - name: plan
     image: wirelab/docker-terragrunt:v0.11.14
+    user: root
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -51,6 +54,7 @@ steps:
 
   - name: apply
     image: wirelab/docker-terragrunt:v0.11.14
+    user: root
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -70,6 +74,7 @@ steps:
 
   - name: checklist
     image: wirelab/docker-terragrunt:v0.11.14
+    user: root
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
