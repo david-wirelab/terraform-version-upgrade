@@ -7,7 +7,7 @@ steps:
     image: wirelab/docker-terragrunt:v0.11.14
     user: 0
     commands:
-    - terragrunt init --terragrunt-working-dir /home/runner
+    - terragrunt init
     when:
       branch:
         exclude: [ master ]
