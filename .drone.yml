@@ -9,7 +9,7 @@ steps:
     commands:
     - mkdir ~/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
-    - terragrunt init
+    - terragrunt init --terragrunt-working-dir /home/runner
     when:
       branch:
         exclude: [ master ]
