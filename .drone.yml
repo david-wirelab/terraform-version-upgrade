@@ -1,0 +1,80 @@
+kind: pipeline
+type: docker
+name: terraform-version-upgrade
+
+steps:
+  - name: init
+    image: wirelab/docker-terragrunt:v0.11.14
+    commands:
+    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
+    - terragrunt init
+    when:
+      branch:
+        exclude: [ master ]
+    secrets:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+
+  - name: validate
+    image: wirelab/docker-terragrunt:v0.11.14
+    commands:
+    - export TF_VAR_KEY=$${TF_VAR_KEY}
+    - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
+    - terragrunt validate
+    when:
+      branch:
+        exclude: [ master ]
+    secrets:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - TF_VAR_KEY
+      - TF_VAR_SECRET
+
+  - name: plan
+    image: wirelab/docker-terragrunt:v0.11.14
+    commands:
+    - export TF_VAR_KEY=$${TF_VAR_KEY}
+    - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
+    - terragrunt plan -lock=false -out=plan
+    when:
+      event: push
+    secrets:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - TF_VAR_KEY
+      - TF_VAR_SECRET
+
+  - name: apply
+    image: wirelab/docker-terragrunt:v0.11.14
+    commands:
+    - export TF_VAR_KEY=$${TF_VAR_KEY}
+    - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
+    - terragrunt apply -auto-approve -lock=false plan
+    when:
+      branch:
+        include: [ master ]
+        exclude: [ plan/* ]
+      event: push
+    secrets:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - TF_VAR_KEY
+      - TF_VAR_SECRET
+
+  - name: checklist
+    image: wirelab/docker-terragrunt:v0.11.14
+    commands:
+    - export TF_VAR_KEY=$${TF_VAR_KEY}
+    - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
+    - terragrunt 0.12checklist
+    when:
+      event: push
+    secrets:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - TF_VAR_KEY
+      - TF_VAR_SECRET
