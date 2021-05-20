@@ -5,10 +5,8 @@ name: terraform-version-upgrade
 steps:
   - name: init
     image: wirelab/docker-terragrunt:v0.11.14
-    user: root
+    user: 0
     commands:
-    - mkdir ~/.ssh
-    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt init --terragrunt-working-dir /home/runner
     when:
       branch:
@@ -19,12 +17,10 @@ steps:
 
   - name: validate
     image: wirelab/docker-terragrunt:v0.11.14
-    user: root
+    user: 0
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
-    - mkdir ~/.ssh
-    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt validate
     when:
       branch:
@@ -37,12 +33,10 @@ steps:
 
   - name: plan
     image: wirelab/docker-terragrunt:v0.11.14
-    user: root
+    user: 0
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
-    - mkdir ~/.ssh
-    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt plan -lock=false -out=plan
     when:
       event: push
@@ -54,12 +48,10 @@ steps:
 
   - name: apply
     image: wirelab/docker-terragrunt:v0.11.14
-    user: root
+    user: 0
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
-    - mkdir ~/.ssh
-    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt apply -auto-approve -lock=false plan
     when:
       branch:
@@ -74,12 +66,10 @@ steps:
 
   - name: checklist
     image: wirelab/docker-terragrunt:v0.11.14
-    user: root
+    user: 0
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
-    - mkdir ~/.ssh
-    - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt 0.12checklist
     when:
       event: push
