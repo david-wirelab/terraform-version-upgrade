@@ -13,6 +13,9 @@ steps:
     secrets:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
+    volumes:
+      - name: terraform_vars
+        path: /drone/src/terraform.tfvars
 
   - name: validate
     image: wirelab/docker-terragrunt:v0.11.14
