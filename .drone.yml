@@ -6,6 +6,7 @@ steps:
   - name: init
     image: wirelab/docker-terragrunt:v0.11.14
     commands:
+    - mkdir /root/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt init
     when:
@@ -20,6 +21,7 @@ steps:
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - mkdir /root/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt validate
     when:
@@ -36,6 +38,7 @@ steps:
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - mkdir /root/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt plan -lock=false -out=plan
     when:
@@ -51,6 +54,7 @@ steps:
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - mkdir /root/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt apply -auto-approve -lock=false plan
     when:
@@ -69,6 +73,7 @@ steps:
     commands:
     - export TF_VAR_KEY=$${TF_VAR_KEY}
     - export TF_VAR_SECRET=$${TF_VAR_SECRET}
+    - mkdir /root/.ssh
     - ssh-keyscan -t rsa github.com >>  ~/.ssh/known_hosts
     - terragrunt 0.12checklist
     when:
