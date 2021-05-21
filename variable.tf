@@ -1,8 +1,6 @@
-variable "KEY" {
-}
+variable "KEY" {}
 
-variable "SECRET" {
-}
+variable "SECRET" {}
 
 variable "vpc_cidr_block" {
   default = "10.30.0.0/16"

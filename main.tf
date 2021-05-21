@@ -1,10 +1,5 @@
 terraform {
-  backend "s3" {
-    bucket         = "wl-tf-upgrade-terraform-state"
-    key            = "nonprod/terraform.tfstate"
-    region         = "eu-west-2"
-    encrypt        = true
-  }
+  backend "s3" {}
 }
 
 provider "aws" {
