@@ -1,7 +1,3 @@
-terraform {
-  backend "s3" {}
-}
-
 provider "aws" {
   region     = "eu-west-2"
   access_key = var.KEY    # this is a line that should be changed during the upgrade
