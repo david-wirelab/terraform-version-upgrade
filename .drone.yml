@@ -4,8 +4,7 @@ name: terraform-version-upgrade
 
 steps:
 - name: init
-  image: wirelab/docker-terragrunt:v0.11.14
-  user: root
+  image: wirelab/docker-terragrunt:v0.11.0-root
   commands:
   - terragrunt init
   when:
@@ -16,8 +15,7 @@ steps:
     - AWS_SECRET_ACCESS_KEY
 
 - name: validate
-  image: wirelab/docker-terragrunt:v0.11.14
-  user: 0
+  image: wirelab/docker-terragrunt:v0.11.0-root
   commands:
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -32,8 +30,7 @@ steps:
     - TF_VAR_SECRET
 
 - name: plan
-  image: wirelab/docker-terragrunt:v0.11.14
-  user: 0
+  image: wirelab/docker-terragrunt:v0.11.0-root
   commands:
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -47,8 +44,7 @@ steps:
     - TF_VAR_SECRET
 
 - name: apply
-  image: wirelab/docker-terragrunt:v0.11.14
-  user: 0
+  image: wirelab/docker-terragrunt:v0.11.0-root
   commands:
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
@@ -65,8 +61,7 @@ steps:
     - TF_VAR_SECRET
 
 - name: checklist
-  image: wirelab/docker-terragrunt:v0.11.14
-  user: 0
+  image: wirelab/docker-terragrunt:v0.11.0-root
   commands:
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
