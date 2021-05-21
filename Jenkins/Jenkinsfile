@@ -37,7 +37,7 @@ pipeline {
           steps {
               script {
                   docker.image('wirelab/docker-terragrunt:v0.11.14').inside("-v /var/run/docker.sock:/var/run/docker.sock \
-                                                                             --entrypoint=''
+                                                                             --entrypoint='' \
                                                                              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
                                                                              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY") { c ->
                       sh '''
