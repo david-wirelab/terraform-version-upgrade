@@ -1,3 +1,7 @@
+terraform {
+  backend "s3" {}
+}
+
 provider "aws" {
   region     = "eu-west-2"
   version    = "~> 2.70"
@@ -8,4 +12,3 @@ provider "aws" {
 locals {
   naming_suffix = "tf-upgrade"
 }
-
