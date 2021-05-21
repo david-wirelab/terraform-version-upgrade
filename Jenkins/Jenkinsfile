@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+      stage('Initialize Terragrunt') {
+          when {
+              not {
+                  branch 'master'
+              }
+          }
+          environment {
+              AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+              AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+          }
+          steps {
+              script {
+                  docker.image('wirelab/docker-terragrunt:v0.11.14').inside("-v /var/run/docker.sock:/var/run/docker.sock \
+                                                                             --entrypoint='' \
+                                                                             -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+                                                                             -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY") { c ->
+                      sh '''
+            					terragrunt init
+                      '''
+                  }
+              }
+          }
+      }
