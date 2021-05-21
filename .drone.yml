@@ -5,6 +5,7 @@ name: terraform-version-upgrade
 steps:
 - name: init
   image: wirelab/docker-terragrunt:v0.11.14
+  user: root
   commands:
   - terragrunt init
   when:
