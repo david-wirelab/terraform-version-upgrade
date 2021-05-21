@@ -36,6 +36,7 @@ steps:
 
 - name: plan
   image: wirelab/docker-terragrunt:v0.11.14
+  user: root
   commands:
   - terragrunt plan -lock=false -out=plan
   when:
@@ -52,6 +53,7 @@ steps:
 
 - name: apply
   image: wirelab/docker-terragrunt:v0.11.14
+  user: root
   commands:
   - terragrunt apply -auto-approve -lock=false plan
   when:
@@ -71,6 +73,7 @@ steps:
 
 - name: checklist
   image: wirelab/docker-terragrunt:v0.11.14
+  user: root
   commands:
   - terragrunt 0.12checklist
   when:
