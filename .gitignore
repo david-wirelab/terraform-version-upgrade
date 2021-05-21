@@ -103,6 +103,7 @@ ENV/
 
 #terraform
 .terraform
+.terraform.d
 
 #IDE
 *.iml
