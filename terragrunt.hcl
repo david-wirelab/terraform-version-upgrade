@@ -7,4 +7,8 @@ remote_state {
     region         = "eu-west-2"
     dynamodb_table = "terraform-state"
   }
+  generate = {
+    path      = "backend.tf"
+    if_exists = "overwrite_terragrunt"
+  }
 }
