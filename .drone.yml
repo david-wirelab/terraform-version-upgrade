@@ -6,6 +6,8 @@ steps:
 - name: init
   image: wirelab/docker-terragrunt:v0.11.14
   commands:
+  - export AWS_ACCESS_KEY_ID=$${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=$${AWS_SECRET_ACCESS_KEY}
   - terragrunt init
   when:
     branch:
@@ -17,6 +19,8 @@ steps:
 - name: validate
   image: wirelab/docker-terragrunt:v0.11.14
   commands:
+  - export AWS_ACCESS_KEY_ID=$${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=$${AWS_SECRET_ACCESS_KEY}
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
   - terragrunt validate
@@ -32,6 +36,8 @@ steps:
 - name: plan
   image: wirelab/docker-terragrunt:v0.11.14
   commands:
+  - export AWS_ACCESS_KEY_ID=$${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=$${AWS_SECRET_ACCESS_KEY}
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
   - terragrunt plan -lock=false -out=plan
@@ -46,6 +52,8 @@ steps:
 - name: apply
   image: wirelab/docker-terragrunt:v0.11.14
   commands:
+  - export AWS_ACCESS_KEY_ID=$${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=$${AWS_SECRET_ACCESS_KEY}
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
   - terragrunt apply -auto-approve -lock=false plan
@@ -63,6 +71,8 @@ steps:
 - name: checklist
   image: wirelab/docker-terragrunt:v0.11.14
   commands:
+  - export AWS_ACCESS_KEY_ID=$${AWS_ACCESS_KEY_ID}
+  - export AWS_SECRET_ACCESS_KEY=$${AWS_SECRET_ACCESS_KEY}
   - export TF_VAR_KEY=$${TF_VAR_KEY}
   - export TF_VAR_SECRET=$${TF_VAR_SECRET}
   - terragrunt 0.12checklist
