@@ -1,6 +1,8 @@
-variable "KEY" {}
+variable "KEY" {
+}
 
-variable "SECRET" {}
+variable "SECRET" {
+}
 
 variable "vpc_cidr_block" {
   default = "10.30.0.0/16"
@@ -13,3 +15,4 @@ variable "vpc_subnet_cidr_block" {
 variable "az" {
   default = "eu-west-2a"
 }
+
