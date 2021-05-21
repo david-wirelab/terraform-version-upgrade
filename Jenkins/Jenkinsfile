@@ -84,6 +84,22 @@ pipeline {
               }
           }
       }
+      stage('Terragrunt Checklist') {
+          steps {
+              script {
+                  docker.image('wirelab/docker-terragrunt:v0.11.14').inside("-v /var/run/docker.sock:/var/run/docker.sock \
+                                                                             --entrypoint='' \
+                                                                             -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+                                                                             -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+                                                                             -e TF_VAR_KEY=$TF_VAR_KEY \
+                                                                             -e TF_VAR_SECRET=$TF_VAR_SECRET") { c ->
+                      sh '''
+                      terragrunt 0.12checklist
+                      '''
+                  }
+              }
+          }
+      }
     }
     post {
         always {
